@@ -14,7 +14,6 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.Kundenst
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Vormerkkarte;
 
-
 /**
  * Diese Klasse implementiert das Interface VerleihService. Siehe dortiger
  * Kommentar.
@@ -311,5 +310,21 @@ public class VerleihServiceImpl extends AbstractObservableService
   public boolean istVormerkkenMoeglich(Kunde kunde, Medium medien)
   {
   }
+  
+  public void stoniereVormerkung()
+  {
+  }
+  public boolean sindAlleNichtVorgemerkt()
+  {
+  }
+  public boolean sindAlleVorgemerkt()
+  {
+  }
+  public merkeVor()
+  {
+  }
+  
+  
+  
   
 }
