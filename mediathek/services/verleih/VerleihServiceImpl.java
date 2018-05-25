@@ -29,6 +29,14 @@ public class VerleihServiceImpl extends AbstractObservableService
      * die Angabe des Mediums möglich. Beispiel: _verleihkarten.get(medium)
      */
     private Map<Medium, Verleihkarte> _verleihkarten;
+    
+    /**
+     * Übung 6
+     * Diese Map speichert für jedes vorgemerkte Medium die dazugehörige
+     * Vormerkkarte. Ein Zugriff auf die Vormerkkarte ist dadurch leicht über
+     * die Angabe des Mediums möglich. Beispiel: _vormerkkarten.get(medium)
+     */
+    private Map<Medium, Vormerkkarte> _vormerkarten;
 
     /**
      * Der Medienbestand.
@@ -295,6 +303,33 @@ public class VerleihServiceImpl extends AbstractObservableService
             }
         }
         return result;
+    }
+    
+    //Übung 6 Vormerken_Methode
+    @Override
+    public void merkeVor(List<Medium> medien, Kunde kunde)
+    {
+    	assert istVormerkenMoeglich(medien, kunde) : "Vorbedingung verletzt: istVormerkenMoeglich(medium, kunde)";
+    	assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+    	assert medienImBestand(medien) : "Vorbedingung verletzt: mediumImBestand(medium)";
+    	assert kunde != null : "Vorbedingung verletzt: kunde != null";
+    	assert medien != null : "Vorbedingung verletzt: medien != null";
+    	
+    	for(Medium medium : medien)
+    	{
+        //prüfe, ob medium (key) in _vormerkkarten (Map) ist. Wenn ja, gibt medium zurück und fügt eine neue Kunde hinzu.
+    		if (_vormerkkarten.containsKey(medium))
+    		{
+    			_vormerkkarten.get(medium).neuVormerken(kunde);
+    		}
+         //Wenn nicht, füge medium in eine neue Vormerkarte. 
+        	else 
+        	{
+    			_vormerkkarten.put(medium, new Vormerkkarte(medium, kunde));
+    		}
+    	}
+    	
+    	informiereUeberAenderung();
     }
 
 }
