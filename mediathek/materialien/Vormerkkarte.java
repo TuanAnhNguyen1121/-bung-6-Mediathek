@@ -12,7 +12,7 @@ public class Vormerkkarte
     public Vormerkkarte(Medium medium)
     {
         _medium = medium;
-
+        _vormerker = new ArrayList<Kunde>(3);
     }
 
     public Kunde getErstenVormerker()
@@ -38,7 +38,7 @@ public class Vormerkkarte
 
     public String getFormatiertenString()
     {
-        return "";
+        return _medium.getFormatiertenString() + "vorgemerkt von" + _vormerker.toString();
     }
 
     public Medium getMedium()
