@@ -20,9 +20,17 @@ public class Vormerkkarte
         return _vormerker.get(0);
     }
 
-    public boolean istVormerkenMöglich()
+    public boolean istVormerkenMöglich(Kunde kunde)
     {
-        return false;
+        if ((_vormerker.size()<3)&&(!istVerliehenAn(kunde, _medium)
+                                    {
+                                        return true;
+                                    }
+        else 
+                                    {
+                                        return false;
+                                    }
+                                    
     }
 
     public List<Kunde> getAlleVormerker()
