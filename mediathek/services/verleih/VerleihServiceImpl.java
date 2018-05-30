@@ -332,5 +332,24 @@ public class VerleihServiceImpl extends AbstractObservableService
     	
     	informiereUeberAenderung();
     }
+   
+    //Übung 6: Vormerkung stornieren_Methode
+    @Override
+    public void storniereVormerkung(Medium medium, Kunde kunde)
+    {
+        assert mediumImBestand(medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
+        assert istVorgemerkt(medium) : "Vorbedingung verletzt: istVorgemerkt(medium)";
+        assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+        assert kunde != null : "Vorbedingung verletzt: kunde != null";
+        assert medium != null : "Vorbedingung verletzt: medium != null";
+
+        _vormerkkarten.get(medium).entferneVormerker(kunde);
+        if (_vormerkkarten.get(medium).getAlleVormerker().size() == 0)
+        {
+            _vormerkkarten.remove(medium);
+        }
+
+        informiereUeberAenderung();
+    }
 
 }
