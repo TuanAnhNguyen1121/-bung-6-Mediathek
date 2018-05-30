@@ -317,7 +317,8 @@ public class VerleihServiceImpl extends AbstractObservableService
     	
     	for(Medium medium : medien)
     	{
-        //prüfe, ob medium (key) in _vormerkkarten (Map) ist. Wenn ja, gibt medium zurück und fügt eine neue Kunde hinzu.
+        //Prüft,ob diese Map eine Zuordnung für den angegebenen Schlüssel (medium) enthält. 
+        //Wenn ja, gibt den Wert (Verleihkarte) zurück, dem der angegebene Schlüssel zugeordnet wurde. Dann wird die Methode neuVormerken für diese Verleihkarte durchgeführt.
     		if (_vormerkkarten.containsKey(medium))
     		{
     			_vormerkkarten.get(medium).neuVormerken(kunde);
