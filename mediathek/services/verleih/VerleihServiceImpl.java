@@ -304,7 +304,9 @@ public class VerleihServiceImpl extends AbstractObservableService
         }
         return result;
     }
-    //Übung 6 Vormerken_Methode sind weiter unter
+    
+    
+    //Übung 6 Vormerken_Methoden
     
     @Override
     public void merkeVor(List<Medium> medien, Kunde kunde)
@@ -364,23 +366,47 @@ public class VerleihServiceImpl extends AbstractObservableService
     public boolean istVorgemerkt(Medium medium)
     {
          assert medium != null : "Vorbedingung verletzt: medium != null"
+         //TODO
+             	return ;
 
-        return _vormerkkarten.containsKey(medium);
 
     }
     @Override
     public boolean istVormerkenMoeglich(Medium medium Kunde kunde)
-    {   assert kunde != null : "Vorbedingung verletzt: kunde != null";
-    	assert medium != null : "Vorbedingung verletzt: medium != null"
+    {  
+        assert kunde = null : "Vorbedingung verletzt: kunde != null";
+    	assert medium != null : "Vorbedingung verletzt: medium != null";
+        assert medienImBestand(medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
+    	assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+        
+  if (getEntleiherFuer(medium).equals(kunde))
+  
+    { 
+    return false;
+    }
     
+    else
+        
+  if (_vormerkkarten.get(medium).getAlleVormerker().size() < 3 
+       && !_vormerkkarten.get(medium).getAlleVormerker().contains(kunde))
+    { 
+      return true;
+    }
+       else 
+       
+       return false; 
+    }
+    
+    
+    @Override
     }
     public boolen sindAlleNichtVorgemerkt (List<Medium> medium) 
     {
     
     }
     
-    //
-    public booleann sindAlleVorgemerkt (List<Medium> medium)
+@Override
+public booleann sindAlleVorgemerkt (List<Medium> medium)
     {
      
         boolean result = true;
@@ -397,5 +423,16 @@ public class VerleihServiceImpl extends AbstractObservableService
     //
     public List getVormerkkartenFuer(Kunde kunde)
     {
+     assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+        List<Vormerkkarten> kartelist = new ArrayList<Vormerkkarte>();
+        
+        for (Vormerkkarte vormerkkarte : _vormerkkarte.values())
+        {
+            if (vormerkkarte.getAlleVormerker().equals(kunde))
+            {
+                kartelist.add(vormerkkarte);
+            }
+        }
+        return kartelist;
     }
 }
