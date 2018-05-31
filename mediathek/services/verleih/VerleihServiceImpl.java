@@ -306,8 +306,7 @@ public class VerleihServiceImpl extends AbstractObservableService
     }
     
     
-    //Übung 6 Vormerken_Methoden
-    
+    //Übung 6 Vormerken_Methoden    
     @Override
     public void merkeVor(List<Medium> medien, Kunde kunde)
     {
@@ -334,24 +333,57 @@ public class VerleihServiceImpl extends AbstractObservableService
     	
     	informiereUeberAenderung();
     }
-   
-    //Übung 6: Vormerkung stornieren_Methode
+    
+    //Übung 6 Vormerkung ist möglich, wenn jedes Medium kann von maximal 3 unterschiedlichen Kunden vorgemerkt werden.
     @Override
-    public void storniereVormerkung(Medium medium, Kunde kunde)
+    public boolean istVormerkenMoeglich(Medium medium, Kunde kunde)
     {
         assert mediumImBestand(medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
-        assert istVorgemerkt(medium) : "Vorbedingung verletzt: istVorgemerkt(medium)";
         assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
         assert kunde != null : "Vorbedingung verletzt: kunde != null";
         assert medium != null : "Vorbedingung verletzt: medium != null";
 
-        _vormerkkarten.get(medium).entferneVormerker(kunde);
-        if (_vormerkkarten.get(medium).getAlleVormerker().size() == 0)
+        if (istVorgemerkt(medium))
         {
-            _vormerkkarten.remove(medium);
+            boolean entleiherNichtVormerker = true;
+
+            if (istVerliehen(medium))
+            {
+                entleiherNichtVormerker = !getEntleiherFuer(medium).equals(kunde);
+            }
+
+            return (_vormerkkarten.get(medium).getAlleVormerker().size() < 3) && entleiherNichtVormerker && !_vormerkkarten.get(medium).getAlleVormerker().contains(kunde);
+        }
+        else
+        {
+            if (istVerliehen(medium))
+            {
+                return !getEntleiherFuer(medium).equals(kunde);
+            }
+
+            return true;
+        }
+    }
+
+    @Override
+    public boolean istVormerkenMoeglich(List<Medium> medien, Kunde kunde)
+    {
+        assert medienImBestand(
+                medien) : "Vorbedingung verletzt: mediumImBestand(medium)";
+        assert kundeImBestand(
+                kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+        assert kunde != null : "Vorbedingung verletzt: kunde != null";
+        assert medien != null : "Vorbedingung verletzt: medium != null";
+
+        for (Medium m : medien)
+        {
+            if (!istVormerkenMoeglich(m, kunde))
+            {
+                return false;
+            }
         }
 
-        informiereUeberAenderung();
+        return true;
     }
     
     //Übung 6 von 25.05.18 weiter unten
