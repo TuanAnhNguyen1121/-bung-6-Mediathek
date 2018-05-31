@@ -136,7 +136,7 @@ public interface VerleihService extends ObservableService
      * Prüft ob alle angegebenen Medien verliehen sind.
      * 
      * @param medien Eine Liste von Medien.
-     * 
+     *
      * @return true, wenn alle gegebenen Medien verliehen sind, sonst false.
      * 
      * @require medienImBestand(medien)
@@ -227,5 +227,77 @@ public interface VerleihService extends ObservableService
      * @ensure (result != null)
      */
     Verleihkarte getVerleihkarteFuer(Medium medium);
+    
+    //Ubung 6 :
+    /**Prüft,ob diese Map eine Zuordnung für den angegebenen Schlüssel (medium) enthält. 
+     *Wenn ja, gibt den Wert (Verleihkarte) zurück, 
+     *dem der angegebene Schlüssel zugeordnet wurde. Dann wird die Methode neuVormerken für diese Verleihkarte durchgeführt.
+     *Wenn nicht, füge medium in eine neue Vormerkarte.
+     * @param medien
+     * @param kunde 
+     * @require istVormerkenMoeglich(medien, kunde)
+     * @require kundeImBestand(kunde) 
+     * @require medienImBestand(medien)
+     * @require medium != null
+     * @require kunde != null
+     */
+    merkeVor(List<Medium> medien, Kunde kunde);
+    
+    /**
+     * Loschen die Vormerkung an eine gegebene Medium von eine kunde
+     * @param medium 
+     * @param kunde 
+     * @require mediumImBestand(medium)
+     * @require kundeImBestand(kunde)
+     * @require kunde!= null
+     * @require medium!= null
+     */
+    storniereVormerkung(Medium medium, Kunde kunde);
+    
+    /**
+    * Gibt die Vormerkkarte für ein Medium zurück.
+    *@param medium
+    *@return 
+     */
+    Vormerkkarte getVormerkkarte(Medium medium);
+    
+    /**
+     *pruft ob gegebene Medium vorgemerkt ist ; ausgeliehen ist & gibts kunde die Medium eine Vormerkung angelegt.
+     *@param Medium
+      *@return boolean
+     */
+    oolean istVorgemerkt(Medium medium);
+    
+    /**
+    *Pruft ob die Kunde an gegebene vormerkkarte-Medium angelegen kann
+     * @param medium 
+     * @param kunde 
+     * @return true, wenn das Vormerken möglich ist, sonst false
+     * @require mediumImBestand(medium)
+     * @require kundeImBestand(kunde)
+     * @require kunde != null
+     * @require medium != null
+     * 
+     * @ensure result != null
+    */
+    boolean istVormerkenMoeglich(Medium medium Kunde kunde);
+    
+    /**
+    *
+    */
+    boolen sindAlleNichtVorgemerkt (List<Medium> medium);
+    
+    /**
+    *
+    */
+    booleann sindAlleVorgemerkt (List<Medium> medium);
+    
+   /**
+    *gib Liste von alle Vormerkkarte an gegebene Kunde
+    *@param Kunde
+    *@return List von Vormerkkarte
+    */
+    List getVormerkkartenFuer(Kunde kunde);
+
 
 }
