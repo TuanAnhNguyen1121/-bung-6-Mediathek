@@ -304,8 +304,8 @@ public class VerleihServiceImpl extends AbstractObservableService
         }
         return result;
     }
+    //Übung 6 Vormerken_Methode sind weiter unter
     
-    //Übung 6 Vormerken_Methode
     @Override
     public void merkeVor(List<Medium> medien, Kunde kunde)
     {
@@ -351,5 +351,51 @@ public class VerleihServiceImpl extends AbstractObservableService
 
         informiereUeberAenderung();
     }
+    
+    //Übung 6 von 25.05.18 weiter unten
+    @Override
+    public Vormerkkarte getVormerkkarte(Medium medium)
+    {    assert medium != null : "Vorbedingung verletzt: medium != null"
 
+        return _vormerkkarten.get(medium);
+
+    }
+    @Override
+    public boolean istVorgemerkt(Medium medium)
+    {
+         assert medium != null : "Vorbedingung verletzt: medium != null"
+
+        return _vormerkkarten.containsKey(medium);
+
+    }
+    @Override
+    public boolean istVormerkenMoeglich(Medium medium Kunde kunde)
+    {   assert kunde != null : "Vorbedingung verletzt: kunde != null";
+    	assert medium != null : "Vorbedingung verletzt: medium != null"
+    
+    }
+    public boolen sindAlleNichtVorgemerkt (List<Medium> medium) 
+    {
+    
+    }
+    
+    //
+    public booleann sindAlleVorgemerkt (List<Medium> medium)
+    {
+     
+        boolean result = true;
+        for (Medium medium : medien)
+        {
+            if (istVerliehen(medium) && )
+            {
+                result = false;
+            }
+        }
+        return result;
+    }
+    
+    //
+    public List getVormerkkartenFuer(Kunde kunde)
+    {
+    }
 }
