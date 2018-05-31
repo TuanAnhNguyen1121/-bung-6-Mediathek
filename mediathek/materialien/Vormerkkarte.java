@@ -34,13 +34,18 @@ public class Vormerkkarte
 
     }
     /**
-     * Gibt das erste Vormerker zurück.
-     * @return Die Kunde, die erste in die Liste ist
+     * Gibt das  Vormerker zurück.
+     *@param zwischen 1-3 zururck
+     * @return Die Kunde, die erste in die index der Liste ist
      * @ensure result != null
      */
-    public Kunde getErstenVormerker()
-    {
-        return _vormerker.get(0);
+    public Kunde getVormerker(int i)
+	    
+    {	assert i != null: "Vorbedingung verleztz != null";
+	assert i <= 3 : "Vorbedingung verletzt: index <= 3";
+	assert i >=1 : "Vorbedingung verletzt: index <= 3";
+     
+        return _vormerker.get(i-1);
     }
     /**
      * Überprüfen , ob die Anzahl der Vormerkern über 3 liegt
@@ -49,8 +54,9 @@ public class Vormerkkarte
      * @ensure result != null
      */
     public boolean istVormerkenMöglich(Kunde kunde)
-    {
-        if ((_vormerker.size()<3)&&(!istVerliehenAn(kunde, _medium)
+    {assert kunde != null : "Vorbedingung verletzt: kunde != null";
+     
+        if ((_vormerker.size()<3)&&(!_vormerker.contains(kunde))
                                     {
                                         return true;
                                     }
@@ -76,7 +82,7 @@ public class Vormerkkarte
      *@require kunde != null
      */
     public void neueVormerken(Kunde kunde)
-    {     		assert kunde != null : "Vorbedingung verletzt: kunde != null";
+    {  assert kunde != null : "Vorbedingung verletzt: kunde != null";
 
 		_vormerker.add(kunde);
     }
@@ -85,7 +91,7 @@ public class Vormerkkarte
      *@require _vormerker.contains(kunde) ; kunde ist innerhalb der vormerkarte
     */                                
     public void entfernenVormerken(Kunde kunde)
-    {
+    { assert kunde != null : "Vorbedingung verletzt: kunde != null";
       assert _vormerker.contains(kunde) : "Vorbedingung verletzt: _vormerker.contains(kunde)";
 
        _vormerker.remove(kunde);
@@ -98,7 +104,7 @@ public class Vormerkkarte
      */
     public String getFormatiertenString()
     {
-        return _medium.getFormatiertenString() + "vorgemerkt von" + _vormerker.toString();
+        return _medium.getMedium() + "vorgemerkt von" + _vormerker.getAlleVormerker();
     }
    /**
      *@return Medium 
