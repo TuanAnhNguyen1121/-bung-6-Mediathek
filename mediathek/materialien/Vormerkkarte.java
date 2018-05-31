@@ -22,13 +22,16 @@ public class Vormerkkarte
   /**
      * Initialisert eine neue Vormerkkarte  mit den gegebenen Daten.
      * @param medium Ein verliehene Medium.
+     *@param die erste Vormerker . 
      * @require medium != null
      * @ensure #getMedium() == medium
      */
-    public Vormerkkarte(Medium medium)
+    public Vormerkkarte(Medium medium, Kunde kunde)
     {
         _medium = medium;
         _vormerker = new ArrayList<Kunde>(3);
+        _vormerker.add(kunde);
+
     }
     /**
      * Gibt das erste Vormerker zurück.
@@ -69,14 +72,25 @@ public class Vormerkkarte
 
     }
    /**
-     * Überprüfen , ob die Anzahl der Vormerkern über 3 liegt
-     * und wenn die Kunde bereits in der Liste steht.
      * fuge die neue Vormerker/kunde ein .
+     *@require kunde != null
      */
     public void neueVormerken(Kunde kunde)
-    {   if 
+    {     		assert kunde != null : "Vorbedingung verletzt: kunde != null";
 
+		_vormerker.add(kunde);
     }
+    /**
+     * fuge die neue Vormerker/kunde ein .
+     *@require _vormerker.contains(kunde) ; kunde ist innerhalb der vormerkarte
+    */                                
+    public void entfernenVormerken(Kunde kunde)
+    {
+      assert _vormerker.contains(kunde) : "Vorbedingung verletzt: _vormerker.contains(kunde)";
+
+       _vormerker.remove(kunde);
+
+    }   
    /**
      * @return Eine formatierte Stringrepäsentation der Vormerkkarte. Enthält
      *         Zeilenumbrüche.
