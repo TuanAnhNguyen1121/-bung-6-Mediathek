@@ -334,6 +334,14 @@ public class VerleihServiceImpl extends AbstractObservableService
     	informiereUeberAenderung();
     }
     
+    @Override
+    public boolean istVorgemerkt(Medium medium)
+    {
+        assert mediumImBestand(medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
+
+        return _vormerkkarten.containsKey(medium);
+    }
+    
     //Übung 6 Vormerkung ist möglich, wenn jedes Medium kann von maximal 3 unterschiedlichen Kunden vorgemerkt werden.
     @Override
     public boolean istVormerkenMoeglich(Medium medium, Kunde kunde)
