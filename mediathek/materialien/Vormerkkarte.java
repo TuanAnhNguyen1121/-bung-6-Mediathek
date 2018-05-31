@@ -73,7 +73,7 @@ public class Vormerkkarte
      * und wenn die Kunde bereits in der Liste steht.
      * fuge die neue Vormerker/kunde ein .
      */
-    public void neueVormerker(Kunde kunde)
+    public void neueVormerken(Kunde kunde)
     {   if 
 
     }
