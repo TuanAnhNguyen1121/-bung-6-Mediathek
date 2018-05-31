@@ -1,118 +1,131 @@
 package de.uni_hamburg.informatik.swt.se2.mediathek.materialien;
 
-import java.util.List;
+import java.util.*;
 
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.Medium;
+
 /**
  * Mit Hilfe von Vormerkkarte werden beim Verleih eines Mediums alle relevanten
  * Daten notiert.
  * 
  * Sie beantwortet die folgenden Fragen: Welches Medium wurde reserviert? Wer
- * hat das Medium reserviert? Wie viele Kunden werden gelistet? 
+ * hat das Medium reserviert? Wie viele Kunden werden gelistet?
  * 
- *  ähnlich wie Verleihkarte, Um die Verwaltung der Karten kümmert sich der VerleihService
+ * ähnlich wie Verleihkarte, Um die Verwaltung der Karten kümmert sich der
+ * VerleihService
  * 
  * @author SE2-Team
  * @version SoSe 2017
  */
-public class Vormerkkarte
-{
-    private List<Kunde> _vormerker;
-    private final Medium _medium;
-  /**
-     * Initialisert eine neue Vormerkkarte  mit den gegebenen Daten.
-     * @param medium Ein verliehene Medium.
-     *@param die erste Vormerker . 
-     * @require medium != null
-     * @ensure #getMedium() == medium
-     */
-    public Vormerkkarte(Medium medium, Kunde kunde)
-    {
-        _medium = medium;
-        _vormerker = new ArrayList<Kunde>(3);
-        _vormerker.add(kunde);
+public class Vormerkkarte {
+	private List<Kunde> _vormerker;
+	private final int maximalevormerker = 3;
+	private final Medium _medium;
 
-    }
-    /**
-     * Gibt das  Vormerker zurück.
-     *@param zwischen 1-3 zururck
-     * @return Die Kunde, die erste in die index der Liste ist
-     * @ensure result != null
-     */
-    public Kunde getVormerker(int i)
-	    
-    {	assert i != null: "Vorbedingung verleztz != null";
-	assert i <= 3 : "Vorbedingung verletzt: index <= 3";
-	assert i >=1 : "Vorbedingung verletzt: index <= 3";
-     
-        return _vormerker.get(i-1);
-    }
-    /**
-     * Überprüfen , ob die Anzahl der Vormerkern über 3 liegt
-     * und wenn die Kunde bereits in der Liste steht.
-     * @return Boolean
-     * @ensure result != null
-     */
-    public boolean istVormerkenMöglich(Kunde kunde)
-    {assert kunde != null : "Vorbedingung verletzt: kunde != null";
-     
-        if ((_vormerker.size()<3)&&(!_vormerker.contains(kunde))
-                                    {
-                                        return true;
-                                    }
-        else 
-                                    {
-                                        return false;
-                                    }
-                                    
-    }
-   /**
-     * Überprüfen , ob die Anzahl der Vormerkern über 3 liegt
-     * und wenn die Kunde bereits in der Liste steht.
-     * @return Boolean
-     * @ensure result != null
-     */
-    public List<Kunde> getAlleVormerker()
-    {
-        return _vormerker;
-
-    }
-   /**
-     * fuge die neue Vormerker/kunde ein .
-     *@require kunde != null
-     */
-    public void neueVormerken(Kunde kunde)
-    {  assert kunde != null : "Vorbedingung verletzt: kunde != null";
-
+	/**
+	 * Initialisiert eine neue Vormerkkarte mit den gegebenen Daten.
+	 * 
+	 * @param medium
+	 *            Ein verliehenes Medium.
+	 * @param kunde
+	 *            der erste Vormerker .
+	 * @require medium != null
+	 * @require kunde != null
+	 */
+	public Vormerkkarte(Medium medium, Kunde kunde) {
+		assert kunde != null : "Vorbedingung verletzt: kunde != null";
+		assert medium != null : "Vorbedingung verletzt: medium != null";
+		_medium = medium;
+		_vormerker = new ArrayList<Kunde>(maximalevormerker);
 		_vormerker.add(kunde);
-    }
-    /**
-     * fuge die neue Vormerker/kunde ein .
-     *@require _vormerker.contains(kunde) ; kunde ist innerhalb der vormerkarte
-    */                                
-    public void entfernenVormerken(Kunde kunde)
-    { assert kunde != null : "Vorbedingung verletzt: kunde != null";
-      assert _vormerker.contains(kunde) : "Vorbedingung verletzt: _vormerker.contains(kunde)";
 
-       _vormerker.remove(kunde);
+	}
 
-    }   
-   /**
-     * @return Eine formatierte Stringrepäsentation der Vormerkkarte. Enthält
-     *         Zeilenumbrüche.
-     * @ensure result != null
-     */
-    public String getFormatiertenString()
-    {
-        return _medium.getMedium() + "vorgemerkt von" + _vormerker.getAlleVormerker();
-    }
-   /**
-     *@return Medium 
-     *@ensure result != null
-     */
-    public Medium getMedium()
-    {
-        return _medium;
-    }
+	/**
+	 * Gibt den ersten Vormerker zurück.
+	 * 
+	 */
+	public Kunde getErstenVormerker() {
+		return _vormerker.get(0);
+	}
+
+	/**
+	 * Überprüft , ob der Kunde bereits ein Vormerker ist.
+	 * 
+	 * @param kunde
+	 *            Kunde, für den geprüft werden soll, ob er das Medium bereits
+	 *            vorgemerkt hat
+	 * @require kunde != null
+	 */
+	private boolean istVorgemerktAn(Kunde kunde) {
+		assert kunde != null : "Vorbedingung verletzt: kunde != null";
+		for (int i = 0; i < _vormerker.size(); i++) {
+			if (_vormerker.get(i).equals(kunde)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Überprüft, ob der Kunde das Medium vormerken kann
+	 * @param kunde
+	 *            Kunde, für den geprüft werden soll, ob er das Medium vormerken kann
+	 * @return
+	 */
+	public boolean istVormerkenMoeglich(Kunde kunde) {
+		assert kunde != null : "Vorbedingung verletzt: kunde != null";
+		return (_vormerker.size() < 3 && !istVorgemerktAn(kunde));
+	}
+
+	/**
+	 * Gibt eine Liste mit allen Vormerkern zurück
+	 * @ensure result != null
+	 */
+	public List<Kunde> getAlleVormerker() {
+		return _vormerker;
+
+	}
+
+	/**
+	 * Fügt den neuen Vormerker ein .
+	 * 
+	 * @require kunde != null
+	 * @require istVormerkenMoeglich(kunde)
+	 */
+	public void fuegeKundenHinzu(Kunde kunde) {
+		assert kunde != null : "Vorbedingung verletzt: kunde != null";
+		assert istVormerkenMoeglich(kunde) : "Vorbedingung verletzt: Medium nicht vormerkbar";
+		_vormerker.add(kunde);
+	}
+
+	/**
+	 * Entfernt den Vormerker.
+	 * 
+	 * @require _vormerker.contains(kunde) ; kunde ist innerhalb der vormerkarte
+	 */
+	public void entferneVormerker(Kunde kunde) {
+		assert _vormerker.contains(kunde) : "Vorbedingung verletzt: _vormerker.contains(kunde)";
+
+		_vormerker.remove(kunde);
+
+	}
+
+	/**
+	 * @return Eine formatierte Stringrepäsentation der Vormerkkarte. Enthält
+	 *         Zeilenumbrüche.
+	 * @ensure result != null
+	 */
+	public String getFormatiertenString() {
+		return _medium.getFormatiertenString() + "vorgemerkt von" + _vormerker.toString();
+	}
+
+	/**
+	 * @return Medium
+	 * @ensure result != null
+	 */
+	public Medium getMedium() {
+		return _medium;
+	}
 
 }
