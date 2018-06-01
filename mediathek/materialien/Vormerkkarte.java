@@ -40,14 +40,25 @@ public class Vormerkkarte {
 		_vormerker.add(kunde);
 
 	}
-	  public Kunde getVormerker(int i)
-	    
-   {	assert i != null: "Vorbedingung verleztz != null";
-	assert i <= 3 : "Vorbedingung verletzt: index <= 3";
-	assert i >=1 : "Vorbedingung verletzt: index <= 3";
-  
-     return _vormerker.get(i-1);
-     }
+
+	public Kunde getVormerker(int i)
+
+	{
+		assert i != 0 : "Vorbedingung verleztz != null";
+		assert i <= 3 : "Vorbedingung verletzt: index <= 3";
+		assert i >= 1 : "Vorbedingung verletzt: index <= 3";
+
+		return _vormerker.get(i - 1);
+	}
+
+	/**
+	 * Gibt den ersten Vormerker zurück.
+	 * 
+	 */
+	public Kunde getErstenVormerker() {
+		return getVormerker(0);
+	}
+
 	/**
 	 * Überprüft , ob der Kunde bereits ein Vormerker ist.
 	 * 
@@ -68,8 +79,10 @@ public class Vormerkkarte {
 
 	/**
 	 * Überprüft, ob der Kunde das Medium vormerken kann
+	 * 
 	 * @param kunde
-	 *            Kunde, für den geprüft werden soll, ob er das Medium vormerken kann
+	 *            Kunde, für den geprüft werden soll, ob er das Medium vormerken
+	 *            kann
 	 * @return
 	 */
 	public boolean istVormerkenMoeglich(Kunde kunde) {
@@ -79,6 +92,7 @@ public class Vormerkkarte {
 
 	/**
 	 * Gibt eine Liste mit allen Vormerkern zurück
+	 * 
 	 * @ensure result != null
 	 */
 	public List<Kunde> getAlleVormerker() {
