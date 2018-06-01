@@ -103,8 +103,7 @@ public class VerleihServiceImpl extends AbstractObservableService
     @Override
     public boolean istVerliehen(Medium medium)
     {
-        assert mediumImBestand(
-                medium) : "Vorbedingung verletzt: mediumExistiert(medium)";
+        assert mediumImBestand(medium) : "Vorbedingung verletzt: mediumExistiert(medium)";
         return _verleihkarten.get(medium) != null;
     }
 
@@ -115,9 +114,11 @@ public class VerleihServiceImpl extends AbstractObservableService
                 kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
         assert medienImBestand(
                 medien) : "Vorbedingung verletzt: medienImBestand(medien)";
-                
-         boolean entleiherIstVormerker = true;
-
+        
+	//Übung 6 initialisieren lokale Variable entleiherIstVormerker als true
+        boolean entleiherIstVormerker = true;
+	
+	//Übung 6 check für alle m Medien, wenn Vormerkkarte das m Medium enthält, dann nimmt Vormerkkarte das Medium mit dem Index 1
         for (Medium m : medien)
         {
             if (_vormerkkarten.containsKey(m))
@@ -140,8 +141,7 @@ public class VerleihServiceImpl extends AbstractObservableService
         {
             Verleihkarte verleihkarte = _verleihkarten.get(medium);
             _verleihkarten.remove(medium);
-            _protokollierer.protokolliere(
-                    VerleihProtokollierer.EREIGNIS_RUECKGABE, verleihkarte);
+            _protokollierer.protokolliere(VerleihProtokollierer.EREIGNIS_RUECKGABE, verleihkarte);
         }
 
         informiereUeberAenderung();
@@ -223,8 +223,7 @@ public class VerleihServiceImpl extends AbstractObservableService
                     ausleihDatum);
 
             _verleihkarten.put(medium, verleihkarte);
-            _protokollierer.protokolliere(
-                    VerleihProtokollierer.EREIGNIS_AUSLEIHE, verleihkarte);
+            _protokollierer.protokolliere(VerleihProtokollierer.EREIGNIS_AUSLEIHE, verleihkarte);
         }
         // Was passiert wenn das Protokollieren mitten in der Schleife
         // schief geht? informiereUeberAenderung in einen finally Block?
