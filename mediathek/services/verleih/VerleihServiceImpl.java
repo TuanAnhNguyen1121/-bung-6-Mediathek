@@ -150,8 +150,7 @@ public class VerleihServiceImpl extends AbstractObservableService
     @Override
     public boolean sindAlleNichtVerliehen(List<Medium> medien)
     {
-        assert medienImBestand(
-                medien) : "Vorbedingung verletzt: medienImBestand(medien)";
+        assert medienImBestand(medien) : "Vorbedingung verletzt: medienImBestand(medien)";
         boolean result = true;
         for (Medium medium : medien)
         {
@@ -166,10 +165,8 @@ public class VerleihServiceImpl extends AbstractObservableService
     @Override
     public boolean sindAlleVerliehenAn(Kunde kunde, List<Medium> medien)
     {
-        assert kundeImBestand(
-                kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
-        assert medienImBestand(
-                medien) : "Vorbedingung verletzt: medienImBestand(medien)";
+        assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+        assert medienImBestand(medien) : "Vorbedingung verletzt: medienImBestand(medien)";
 
         boolean result = true;
         for (Medium medium : medien)
@@ -185,10 +182,8 @@ public class VerleihServiceImpl extends AbstractObservableService
     @Override
     public boolean istVerliehenAn(Kunde kunde, Medium medium)
     {
-        assert kundeImBestand(
-                kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
-        assert mediumImBestand(
-                medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
+        assert kundeImBestand(kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
+        assert mediumImBestand(medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
 
         return istVerliehen(medium) && getEntleiherFuer(medium).equals(kunde);
     }
