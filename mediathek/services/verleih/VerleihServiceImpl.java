@@ -521,4 +521,13 @@ public booleann sindAlleVorgemerkt (List<Medium> medium)
         }
         return kartelist;
     }
+	public boolean istKundeimmerErsterVormerker(List<Medium> medien, Kunde kunde) {
+		for (Medium medium : medien) {
+			if (istVorgemerkt(medium) && !getVormerkkarte(medium).getErstenVormerker().equals(kunde)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
