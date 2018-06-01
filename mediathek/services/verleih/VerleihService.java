@@ -298,6 +298,6 @@ public interface VerleihService extends ObservableService
     *@return List von Vormerkkarte
     */
     List getVormerkkartenFuer(Kunde kunde);
-
+	boolean istKundeimmerErsterVormerker(List<Medium> medien, Kunde kunde);
 
 }
