@@ -56,7 +56,7 @@ public class Vormerkkarte {
 	 * 
 	 */
 	public Kunde getErstenVormerker() {
-		return getVormerker(0);
+		return getVormerker(1);
 	}
 
 	/**
