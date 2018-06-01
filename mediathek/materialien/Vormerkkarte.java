@@ -41,13 +41,16 @@ public class Vormerkkarte {
 
 	}
 	  public Kunde getVormerker(int i)
-	    
 	  {
 	assert i <= 3 : "Vorbedingung verletzt: index <= 3";
 	assert i >=1 : "Vorbedingung verletzt: index <= 3";
   
      return _vormerker.get(i-1);
      }
+	
+		public Kunde getErstenVormerker() {
+		return getVormerker(0);
+	}
 	/**
 	 * Überprüft , ob der Kunde bereits ein Vormerker ist.
 	 * 
