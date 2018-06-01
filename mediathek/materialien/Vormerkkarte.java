@@ -42,7 +42,7 @@ public class Vormerkkarte {
 	}
 	  public Kunde getVormerker(int i)
 	    
-   {	assert i != null: "Vorbedingung verleztz != null";
+	  {
 	assert i <= 3 : "Vorbedingung verletzt: index <= 3";
 	assert i >=1 : "Vorbedingung verletzt: index <= 3";
   
