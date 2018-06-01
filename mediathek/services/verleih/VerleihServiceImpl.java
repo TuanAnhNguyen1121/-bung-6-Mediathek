@@ -75,6 +75,9 @@ public class VerleihServiceImpl extends AbstractObservableService
         _kundenstamm = kundenstamm;
         _medienbestand = medienbestand;
         _protokollierer = new VerleihProtokollierer();
+        
+        //_vormerkkarten als HashMap definieren
+        _vormerkkarten = new HashMap<>();
     }
 
     /**
@@ -112,8 +115,17 @@ public class VerleihServiceImpl extends AbstractObservableService
                 kunde) : "Vorbedingung verletzt: kundeImBestand(kunde)";
         assert medienImBestand(
                 medien) : "Vorbedingung verletzt: medienImBestand(medien)";
+                
+         boolean entleiherIstVormerker = true;
 
-        return sindAlleNichtVerliehen(medien);
+        for (Medium m : medien)
+        {
+            if (_vormerkkarten.containsKey(m))
+            {
+                entleiherIstVormerker = _vormerkkarten.get(m).getVormerker(1).equals(kunde);
+            }        
+         }
+        return sindAlleNichtVerliehen(medien) && entleiherIstVormerker;
     }
 
     @Override
@@ -392,6 +404,40 @@ public class VerleihServiceImpl extends AbstractObservableService
         }
 
         return true;
+    }
+    
+        @Override
+    public List<Vormerkkarte> getVormerkkarten()
+    {
+        return new ArrayList<Vormerkkarte>(_vormerkkarten.values());
+    }
+
+    @Override
+    public Vormerkkarte getVormerkkarteFuer(Medium medium)
+    {
+        assert istVorgemerkt(
+                medium) : "Vorbedingung verletzt: istVorgemerkt(medium)";
+        assert mediumImBestand(
+                medium) : "Vorbedingung verletzt: mediumImBestand(medium)";
+
+        return _vormerkkarten.get(medium);
+    }
+
+    @Override
+    public List<Vormerkkarte> getVormerkkartenFuer(Kunde kunde)
+    {
+        List<Vormerkkarte> karten = new LinkedList<>();
+
+        for (Vormerkkarte vk : _vormerkkarten.values())
+        {
+            if (vk.getAlleVormerker()
+                .contains(kunde))
+            {
+                karten.add(vk);
+            }
+        }
+
+        return karten;
     }
     
     //Übung 6 von 25.05.18 weiter unten
