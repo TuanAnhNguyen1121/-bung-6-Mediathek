@@ -5,6 +5,7 @@ import java.util.List;
 import de.uni_hamburg.informatik.swt.se2.mediathek.fachwerte.Datum;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Kunde;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Verleihkarte;
+import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Vormerkkarte;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.Medium;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.ObservableService;
 
@@ -241,7 +242,7 @@ public interface VerleihService extends ObservableService
      * @require medium != null
      * @require kunde != null
      */
-    merkeVor(List<Medium> medien, Kunde kunde);
+    void merkeVor(List<Medium> medien, Kunde kunde);
     
     /**
      * Loschen die Vormerkung an eine gegebene Medium von eine kunde
@@ -252,7 +253,7 @@ public interface VerleihService extends ObservableService
      * @require kunde!= null
      * @require medium!= null
      */
-    storniereVormerkung(Medium medium, Kunde kunde);
+    void storniereVormerkung(Medium medium, Kunde kunde);
     
     /**
     * Gibt die Vormerkkarte für ein Medium zurück.
@@ -266,7 +267,7 @@ public interface VerleihService extends ObservableService
      *@param Medium
       *@return boolean
      */
-    oolean istVorgemerkt(Medium medium);
+    boolean istVorgemerkt(Medium medium);
     
     /**
     *Pruft ob die Kunde an gegebene vormerkkarte-Medium angelegen kann
@@ -280,24 +281,26 @@ public interface VerleihService extends ObservableService
      * 
      * @ensure result != null
     */
-    boolean istVormerkenMoeglich(Medium medium Kunde kunde);
+    boolean istVormerkenMoeglich(Medium medium, Kunde kunde);
+    
+    boolean istVormerkenMoeglich(List<Medium> medien, Kunde kunde);
     
     /**
     *
     */
-    boolen sindAlleNichtVorgemerkt (List<Medium> medium);
+    boolean sindAlleNichtVorgemerkt (List<Medium> medien);
     
     /**
     *
     */
-    booleann sindAlleVorgemerkt (List<Medium> medium);
+    boolean sindAlleVorgemerkt (List<Medium> medien);
     
    /**
     *gib Liste von alle Vormerkkarte an gegebene Kunde
     *@param Kunde
     *@return List von Vormerkkarte
     */
-    List getVormerkkartenFuer(Kunde kunde);
-
-
+    public List<Vormerkkarte> getVormerkkartenFuer(Kunde kunde);
+    
+    public List<Vormerkkarte> getVormerkkarten();
 }
