@@ -476,15 +476,15 @@ public class VerleihServiceImpl extends AbstractObservableService
        
        return false; 
     }
-    
-    
-    @Override
-    }
-    public boolen sindAlleNichtVorgemerkt (List<Medium> medium) 
-    {
-    
-    }
-    
+  	@Override
+	public boolean sindAlleNichtVorgemerkt(List<Medium> medien) {
+		for (Medium medium : medien) {
+			if (istVorgemerkt(medium)) {
+				return false;
+			}
+		}
+		return true;
+	}
 @Override
 public booleann sindAlleVorgemerkt (List<Medium> medium)
     {
