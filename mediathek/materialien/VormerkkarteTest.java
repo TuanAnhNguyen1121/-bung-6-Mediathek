@@ -8,8 +8,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import de.uni_hamburg.informatik.swt.se2.mediathek.fachwerte.Datum;
-import de.uni_hamburg.informatik.swt.se2.mediathek.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.mediathek.fachwerte.Kundennummer;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.CD;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.Medium;
